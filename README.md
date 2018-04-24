@@ -1,8 +1,10 @@
 # Serverless app in Python for CI
 
-A simple serverless Python app that showcases CI with Circle CI.
+A simple serverless Python app that showcases CI with Circle CI. This is a companion app for the blog post [Automating a CI workflow for a Python app with Circle CI]().
 
 ## Local
+
+Before deploying your service, test out the functions and run unit tests locally.
 
 ### Test Functions
 
@@ -44,9 +46,9 @@ $ coverage html
 ![Coverage](https://user-images.githubusercontent.com/8188/39215546-3f3dd9be-47e6-11e8-97cd-e4d5b25de1ea.png)
 
 
-## Remote
+## Deploy
 
-### Deploy
+To `deploy` the service to the cloud:
 
 ```
 $ sls deploy
@@ -76,7 +78,9 @@ functions:
   helloWorld: python-ci-dev-helloWorld
 ```
 
-### Test Functions
+### Test functions remotely
+
+To test the function `helloWorld` remotely on the cloud:
 
 ```
 $ sls invoke -f helloWorld -d '{"body":"blah"}'          
@@ -90,6 +94,8 @@ $ sls invoke -f helloWorld -d '{"body":"blah"}'
 
 
 ## Cleanup
+
+Cleanup all functions and resources deployed to the AWS cloud.
 
 ```
 $ sls remove
