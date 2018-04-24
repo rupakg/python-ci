@@ -16,7 +16,8 @@ service: python-ci
 # exclude the code coverage files and circle ci files
 package:
   exclude:
-  - coverage/**
+  - .coverage
+  - htmlcov/**
   - .circleci/**
 
 custom:

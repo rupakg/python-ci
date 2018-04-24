@@ -17,18 +17,26 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - dependencies-cache-{{ checksum "package.json" }}
+            - dependencies-py-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - dependencies-cache
+            - dependencies-py
+            # - dependencies-node-{{ checksum "package.json" }}
+            # # fallback to using the latest cache if no exact match is found
+            # - dependencies-node
+
+      - run:
+          name: Install python test dependencies
+          command: |
+            sudo pip install nose
+            sudo pip install coverage
 
       # this is slow. build a custom docker image and use that
       - run:
           name: Install node and npm
           command: |
-            sudo apt-get update
-            sudo apt-get install nodejs
-            sudo apt-get install npm
-            sudo pip install coverage
+            curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            node --version && npm -v
 
       - run:
           name: Install Serverless CLI and dependencies
@@ -40,8 +48,7 @@ jobs:
       - run:
           name: Run tests with code coverage
           command: |
-            python -m unittest discover tests
-            coverage report
+            nosetests --with-coverage
 
       # deploy app
       - run:
@@ -50,5 +57,7 @@ jobs:
 
       - save_cache:
           paths:
-            - node_modules
-          key: dependencies-cache-{{ checksum "package.json" }}
+            - ./venv
+            # - node_modules
+          key: dependencies-py-{{ checksum "requirements.txt" }}
+          # key: dependencies-node-{{ checksum "package.json" }}

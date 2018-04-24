@@ -20,6 +20,7 @@ __pycache__/
 *.pyc
 .coverage
 htmlcov
+cover
 
 # Serverless directories
 .serverless

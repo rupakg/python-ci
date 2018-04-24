@@ -19,31 +19,28 @@ $ sls invoke local -f helloWorld -d '{"body":"blah"}'
 
 ### Run Tests
 
+For running tests with coverage we will use [nose](https://nose.readthedocs.io/en/latest/):
 ```
-$ python -m unittest discover tests
+$ nosetests --with-coverage --cover-html
 
 ..
+Name               Stmts   Miss  Cover
+--------------------------------------
+handler.py             6      0   100%
+hw/__init__.py         0      0   100%
+hw/helloworld.py       3      0   100%
+_bootlocale.py        17     17     0%
+--------------------------------------
+TOTAL                 26     17    35%
 ----------------------------------------------------------------------
-Ran 2 tests in 0.000s
+Ran 2 tests in 0.061s
 
 OK
 ```
 
-For test coverage we will use `coverage.py`
+The above command also creates a html representation of the coverage metrics in the default folder `cover` and looks like so:
 
-```
-$ coverage report
-
-Name                       Stmts   Miss  Cover
-----------------------------------------------
-tests/test_helloworld.py      17     15    12%
-```
-Or, for a more visual representation:
-
-```
-$ coverage html
-```
-![Coverage](https://user-images.githubusercontent.com/8188/39215546-3f3dd9be-47e6-11e8-97cd-e4d5b25de1ea.png)
+![Coverage](https://user-images.githubusercontent.com/8188/39218547-48cb51b6-47f3-11e8-9186-c828b75df567.png)
 
 
 ## Deploy
