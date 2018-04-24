@@ -2,6 +2,8 @@
 
 A simple serverless Python app that showcases CI with Circle CI. This is a companion app for the blog post [Automating a CI workflow for a Python app with Circle CI]().
 
+![](https://circleci.com/gh/rupakg/python-ci.svg?style=shield&circle-token=:circle-token)
+
 ## Local
 
 Before deploying your service, test out the functions and run unit tests locally.
@@ -87,8 +89,15 @@ $ sls invoke -f helloWorld -d '{"body":"blah"}'
 }
 ```
 
-## CI
+## Continuous Integration
 
+We will use CirclCI for continuous integration, that will pull our latest code on commit, set up our environment, run tests and then deploy our app to AWS.
+
+* Set up your account on CircleCI
+* Configure a Github repo as a project
+* Set up AWS credentials for the project
+* Check in code to the repo
+* CircleCI will trigger a build based on that commit
 
 ## Cleanup
 
