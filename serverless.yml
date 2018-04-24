@@ -1,0 +1,44 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: python-ci
+
+# exclude the code coverage files and circle ci files
+package:
+  exclude:
+  - coverage/**
+  - .circleci/**
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+provider:
+  name: aws
+  runtime: python3.6
+  stage: dev
+  region: us-east-1
+
+# The `functions` block defines what code to deploy
+functions:
+  helloWorld:
+    handler: handler.hello_world
+    # The `events` block defines how to trigger the handler.hello_world code
+    events:
+      - http:
+          path: helloworld
+          method: get
+          cors: true
+
+plugins:
+  - serverless-python-requirements
