@@ -1,0 +1,54 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/python-ci
+
+    docker:
+      # specify the version you desire here
+      - image: circleci/python:3.6.1
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-cache-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - dependencies-cache
+
+      # this is slow. build a custom docker image and use that
+      - run:
+          name: Install node and npm
+          command: |
+            sudo apt-get update
+            sudo apt-get install nodejs
+            sudo apt-get install npm
+            sudo pip install coverage
+
+      - run:
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+
+      # run tests
+      - run:
+          name: Run tests with code coverage
+          command: |
+            python -m unittest discover tests
+            coverage report
+
+      # deploy app
+      - run:
+          name: Deploy application
+          command: sls deploy -v
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-cache-{{ checksum "package.json" }}

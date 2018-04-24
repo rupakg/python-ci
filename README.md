@@ -27,6 +27,23 @@ Ran 2 tests in 0.000s
 OK
 ```
 
+For test coverage we will use `coverage.py`
+
+```
+$ coverage report
+
+Name                       Stmts   Miss  Cover
+----------------------------------------------
+tests/test_helloworld.py      17     15    12%
+```
+Or, for a more visual representation:
+
+```
+$ coverage html
+```
+![Coverage](https://user-images.githubusercontent.com/8188/39215546-3f3dd9be-47e6-11e8-97cd-e4d5b25de1ea.png)
+
+
 ## Remote
 
 ### Deploy

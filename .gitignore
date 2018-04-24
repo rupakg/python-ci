@@ -18,6 +18,8 @@ var/
 node_modules
 __pycache__/
 *.pyc
+.coverage
+htmlcov
 
 # Serverless directories
 .serverless
