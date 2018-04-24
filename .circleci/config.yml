@@ -17,12 +17,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - dependencies-py-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - dependencies-py
-            # - dependencies-node-{{ checksum "package.json" }}
+            - dependencies-node-{{ checksum "package.json" }}
             # # fallback to using the latest cache if no exact match is found
-            # - dependencies-node
+            - dependencies-node
 
       - run:
           name: Install python test dependencies
@@ -44,6 +41,11 @@ jobs:
             sudo npm i -g serverless
             npm install
 
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-node-{{ checksum "package.json" }}
+
       # run tests
       - run:
           name: Run tests with code coverage
@@ -54,10 +56,3 @@ jobs:
       - run:
           name: Deploy application
           command: sls deploy -v
-
-      - save_cache:
-          paths:
-            - ./venv
-            # - node_modules
-          key: dependencies-py-{{ checksum "requirements.txt" }}
-          # key: dependencies-node-{{ checksum "package.json" }}
