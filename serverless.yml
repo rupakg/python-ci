@@ -17,7 +17,7 @@ service: python-ci
 package:
   exclude:
   - .coverage
-  - htmlcov/**
+  - cover/**
   - .circleci/**
 
 custom:
